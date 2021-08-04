@@ -1,18 +1,21 @@
 import os
 import pandas as pd 
 
+
 def comprobacion_memoria(name, df):
         # Devolucion de si la bacteria esta registrada o no
         registro = name in set(df['Nombre'])
         return registro
 
+
 def cambio_elemento(name, df):
+        # Función que devuelve un dataframe con la información de la bacteria seleccionada
         aux_df = df.loc[df.isin([name])]
         print(aux_df)
-
         return df
+
+
 def guardado_permanente(rate):
-        
         # Comprobacion de la existencia de la libreria
         try:
                 # Lectura del .csv
