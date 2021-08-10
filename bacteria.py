@@ -59,16 +59,20 @@ def plot_colony_scatter(coords_x, coords_y, growth_rate, time):
     figure = plt.figure()
     axes = plt.axes()
 
-    sizes_in_time = np.zeros(len(coords_x), dtype = [('size', 'float')])
+    sizes_in_time = np.empty(len(coords_x))
 
     scatter = plt.scatter(coords_x, coords_y, sizes_in_time)
-
-    
     
     def growth_function(frame_number):
-        sizes_in_time['size'] = bacteria_growth_formula(1, time, growth_rate)
-        return sizes_in_time
+        a = bacteria_growth_formula(1, frame_number, growth_rate)
+        sizes_in_time[:] = a
+        scatter.set_array(sizes_in_time)
+        return scatter
     
-    anim = animation.FuncAnimation(figure, growth_function, interval = time)
+    anim = animation.FuncAnimation(figure, growth_function, frames = time)
+
+    #path = "D:\\\Nico\\ICAI\\animation.mp4"
+    #writervideo = animation.PillowWriter(fps=30) 
+    #anim.save(path, writer=writervideo)
 
     plt.show()
