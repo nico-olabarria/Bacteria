@@ -1,8 +1,11 @@
 # Este archivo servirá como referencia para crear/manejar clases en python
-
+from matplotlib import animation
+import numpy as np
+import pandas as pd
 from math import e
 from math import pi
 from math import sqrt
+from matplotlib.animation import FuncAnimation
 import matplotlib.pyplot as plt
 
 
@@ -51,3 +54,21 @@ def plot_colony_growth():
 
     plt.show()
 
+def plot_colony_scatter(coords_x, coords_y, growth_rate, time):
+    # Muestra el crecimiento de distintas colonias en coordenadas aleatorias a lo largo del tiempo.
+    figure = plt.figure()
+    axes = plt.axes()
+
+    sizes_in_time = np.zeros(len(coords_x), dtype = [('size', 'float')])
+
+    scatter = plt.scatter(coords_x, coords_y, sizes_in_time)
+
+    
+    
+    def growth_function(frame_number):
+        sizes_in_time['size'] = bacteria_growth_formula(1, time, growth_rate)
+        return sizes_in_time
+    
+    anim = animation.FuncAnimation(figure, growth_function, interval = time)
+
+    plt.show()
