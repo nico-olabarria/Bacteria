@@ -39,7 +39,7 @@ def bacteria_growth_formula(pop_ini, time, growth_rate):
     pop = pop_ini * float(e) ** (growth_rate * time)
     return pop
 
-def plot_colony_growth():
+def plot_colony_growth_general():
     # Esta función simple plotea una colonia de bacterias en coordenadas (0,0) con una velocidad de crecimiento de 1
     figure, axes = plt.subplots()
     axes.set_aspect(1)
@@ -49,6 +49,20 @@ def plot_colony_growth():
         area = bacteria_growth_formula(1, time=i, growth_rate=1)
         rad = sqrt(area / pi)
         draw_circle = plt.Circle((0, 0), rad, color='red', alpha=0.2)
+        axes.add_artist(draw_circle)
+        plt.title('Bacteria')
+
+    plt.show()
+
+def plot_colony_growth_individual(bacteria, time):
+    # Esta función simple plotea una colonia de bacterias en coordenadas (0,0) con una velocidad de crecimiento de 1
+    figure, axes = plt.subplots()
+    axes.set_aspect(1)
+
+    for i in range(0, int(time)):
+        area = bacteria_growth_formula(bacteria.ini_pop, time=i, growth_rate=bacteria.growth_rate)
+        rad = sqrt(area / pi)
+        draw_circle = plt.Circle((bacteria.x, bacteria.y), rad, color=bacteria.colour, alpha=0.2)
         axes.add_artist(draw_circle)
         plt.title('Bacteria')
 
